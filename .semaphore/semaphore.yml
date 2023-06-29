@@ -21,6 +21,7 @@ blocks:
       jobs:
         - name: Unit tests
           commands:
+            - cache restore node-$(checksum pnpm-lock.yaml)
             - pnpm test
         - name: Integration tests
           commands:
