@@ -19,4 +19,12 @@ blocks:
         - name: unit tests
           commands:
             - pnpm test
-
+  - name: Tests
+    task:
+      jobs:
+        - name: Unit tests
+          commands:
+            - echo 'running unit tests'
+        - name: Integration tests
+          commands:
+            - echo 'running integration tests'
