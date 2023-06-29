@@ -16,3 +16,4 @@ blocks:
             - cache restore node-$(checksum pnpm-lock.yaml)
             - pnpm install
             - cache store node-$(checksum pnpm-lock.yaml) $(pnpm store path)
+            - pnpm test
