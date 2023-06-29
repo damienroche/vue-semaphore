@@ -16,15 +16,12 @@ blocks:
             - cache restore node-$(checksum pnpm-lock.yaml)
             - pnpm install
             - cache store node-$(checksum pnpm-lock.yaml) $(pnpm store path)
-        - name: unit tests
-          commands:
-            - pnpm test
   - name: Tests
     task:
       jobs:
         - name: Unit tests
           commands:
-            - echo 'running unit tests'
+            - pnpm test
         - name: Integration tests
           commands:
             - echo 'running integration tests'
