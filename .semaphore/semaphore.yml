@@ -29,8 +29,9 @@ blocks:
       jobs:
         - name: lint files
           commands:
-            - cache restore node-$(checksum pnpm-lock.yaml) $(pnpm store path)
             - echo "Lint files"
+            - cache restore node-$(checksum pnpm-lock.yaml) $(pnpm store path)
+            - pnpm i --frozen-lockfile --offline
             - pnpm lint
   - name: Serve
     dependencies: ["Install"]
