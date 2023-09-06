@@ -5,7 +5,7 @@ agent:
     type: e1-standard-2
     os_image: ubuntu2004
 blocks:
-  - name: Install dependencies
+  - name: Install
     dependencies: []
     task:
       jobs:
@@ -17,7 +17,13 @@ blocks:
             - cache restore node-$(checksum pnpm-lock.yaml)
             - pnpm install
             - cache store node-$(checksum pnpm-lock.yaml) $(pnpm store path)
-  - name: Serve app
+  - name: Lint
+    task:
+      jobs:
+        - name: lint files
+          commands:
+            - echo "Lint files"
+  - name: Serve
     dependencies: ["Install dependencies"]
     task:
       jobs:
@@ -25,7 +31,7 @@ blocks:
           commands:
             - echo "start app on :3333"
   - name: Tests
-    dependencies: ["Install dependencies", "Serve app"]
+    dependencies: ["Install", "Serve"]
     task:
       jobs:
         - name: Unit tests
