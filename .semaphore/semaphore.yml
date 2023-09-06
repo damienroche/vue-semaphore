@@ -18,13 +18,14 @@ blocks:
             - pnpm install
             - cache store node-$(checksum pnpm-lock.yaml) $(pnpm store path)
   - name: Lint
+    dependencies: ["Install"]
     task:
       jobs:
         - name: lint files
           commands:
             - echo "Lint files"
   - name: Serve
-    dependencies: ["Install dependencies"]
+    dependencies: ["Install"]
     task:
       jobs:
         - name: start local server
