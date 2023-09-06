@@ -33,27 +33,33 @@ blocks:
             - curl -fsSL https://get.pnpm.io/install.sh | sh
             - source ~/.bashrc
             - echo "Lint files"
-            - cache restore
+            - cache restore node-$(checksum pnpm-lock.yaml)
             - pnpm lint
   - name: Serve
     dependencies: ["Install"]
     task:
+      prologue:
+          commands:
+            - checkout
       jobs:
         - name: start local server
           commands:
             - curl -fsSL https://get.pnpm.io/install.sh | sh
             - source ~/.bashrc
-            - cache restore
+            - cache restore node-$(checksum pnpm-lock.yaml)
             - pnpm dev
   - name: Tests
     dependencies: ["Install", "Serve"]
     task:
+      prologue:
+        commands:
+          - checkout
       jobs:
         - name: Unit tests
           commands:
             - curl -fsSL https://get.pnpm.io/install.sh | sh
             - source ~/.bashrc
-            - cache restore
+            - cache restore node-$(checksum pnpm-lock.yaml)
             - pnpm run test:unit
         - name: Integration tests
           commands:
