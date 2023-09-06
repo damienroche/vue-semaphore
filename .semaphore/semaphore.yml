@@ -20,10 +20,14 @@ blocks:
   - name: Lint
     dependencies: ["Install"]
     task:
+      prologue:
+        commands:
+          - cache restore
       jobs:
         - name: lint files
           commands:
             - echo "Lint files"
+            - pnpm lint
   - name: Serve
     dependencies: ["Install"]
     task:
