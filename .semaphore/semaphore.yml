@@ -30,6 +30,9 @@ blocks:
       jobs:
         - name: lint files
           commands:
+            - curl -fsSL https://get.pnpm.io/install.sh | sh
+            - source ~/.bashrc
+            - pnpm --version
             - echo "Lint files"
             - cache restore node-$(checksum pnpm-lock.yaml)
             - pnpm i --frozen-lockfile --offline
