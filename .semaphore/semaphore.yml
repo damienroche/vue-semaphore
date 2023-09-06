@@ -20,9 +20,6 @@ blocks:
             - cache restore node-$(checksum pnpm-lock.yaml)
             - pnpm install
             - cache store node-$(checksum pnpm-lock.yaml) $(pnpm store path)
-        - name: lint
-          commands:
-            - cache restore
             - pnpm lint
   - name: Lint
     dependencies: ["Install"]
@@ -48,7 +45,6 @@ blocks:
       jobs:
         - name: Unit tests
           commands:
-            # - pnpm test
             - echo "running unit tests"
         - name: Integration tests
           commands:
