@@ -50,8 +50,6 @@ blocks:
             - echo "running integration tests"
   - name: Mac E2E tests
     dependencies: ["Install"]
-    skip:
-      when: "true"
     task:
       agent:
         machine:
@@ -61,3 +59,7 @@ blocks:
           - checkout
           - node --version
           - npm --version
+      jobs:
+        - name: Cypress E2E
+          commands:
+            - echo "Cypress"
