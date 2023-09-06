@@ -62,7 +62,6 @@ blocks:
   #           - cache restore node-$(checksum pnpm-lock.yaml)
   #           - pnpm dev
   - name: Tests
-    dependencies: ["Install", "Serve"]
     task:
       prologue:
         commands:
