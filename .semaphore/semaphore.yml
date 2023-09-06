@@ -32,10 +32,8 @@ blocks:
           commands:
             - curl -fsSL https://get.pnpm.io/install.sh | sh
             - source ~/.bashrc
-            - pnpm --version
             - echo "Lint files"
             - cache restore node-$(checksum pnpm-lock.yaml)
-            - pnpm i --frozen-lockfile --offline
             - pnpm lint
   - name: Serve
     dependencies: ["Install"]
@@ -43,14 +41,18 @@ blocks:
       jobs:
         - name: start local server
           commands:
-            - echo "start app on :3333"
+            - curl -fsSL https://get.pnpm.io/install.sh | sh
+            - source ~/.bashrc
+            - pnpm dev
   - name: Tests
     dependencies: ["Install", "Serve"]
     task:
       jobs:
         - name: Unit tests
           commands:
-            - echo "running unit tests"
+            - curl -fsSL https://get.pnpm.io/install.sh | sh
+            - source ~/.bashrc
+            - pnpm run test:unit
         - name: Integration tests
           commands:
             - echo "running integration tests"
