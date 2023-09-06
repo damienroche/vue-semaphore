@@ -1,0 +1,84 @@
+version: v1.0
+name: Vue Semaphore
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu2004
+fail_fast:
+  stop:
+    when: "branch != 'main'"
+blocks:
+  # - name: Install
+  #   dependencies: []
+  #   task:
+      # jobs:
+      #   - name: install dependencies
+      #     priority:
+      #       - value: 90
+      #         when: "true"
+      #     commands:
+      #       - corepack enable
+      #       - corepack prepare pnpm@latest-8 --activate
+      #       - checkout
+      #       - cache restore node-$(checksum pnpm-lock.yaml)
+      #       - pnpm install --frozen-lockfile
+      #       - pnpm store prune
+      #       - cache store node-$(checksum pnpm-lock.yaml) $(pnpm store path)
+      #   - name: lint
+      #     commands:
+      #       - pnpm lint
+      #   # - name: unit tests
+      #   #   commands:
+      #   #     - pnpm run test:unit
+  # - name: Lint
+  #   dependencies: ["Install"]
+  #   task:
+  #     # prologue:
+  #     #   commands:
+  #     #     - checkout
+  #     jobs:
+  #       - name: lint files
+  #         commands:
+  #           # - curl -fsSL https://get.pnpm.io/install.sh | sh
+  #           # - source ~/.bashrc
+  #           - corepack enable
+  #           - corepack prepare pnpm@latest-8 --activate
+  #           - checkout
+  #           - echo "Lint files"
+  #           - cache restore node-$(checksum pnpm-lock.yaml)
+  #           - pnpm install
+  #           - pnpm lint
+  # - name: Serve
+  #   dependencies: ["Install"]
+  #   task:
+  #     prologue:
+  #         commands:
+  #           - checkout
+  #     jobs:
+  #       - name: start local server
+  #         commands:
+  #           - curl -fsSL https://get.pnpm.io/install.sh | sh
+  #           - source ~/.bashrc
+  #           - cache restore node-$(checksum pnpm-lock.yaml)
+  #           - pnpm dev
+  - name: Tests
+    task:
+      prologue:
+        commands:
+          - checkout
+      jobs:
+        - name: Unit tests
+          commands:
+            - curl -fsSL https://get.pnpm.io/install.sh | sh
+            - source ~/.bashrc
+            - cache restore node-$(checksum pnpm-lock.yaml)
+            - pnpm install
+            - pnpm run test:unit
+        - name: Integration tests
+          commands:
+            - curl -fsSL https://get.pnpm.io/install.sh | sh
+            - source ~/.bashrc
+            - cache restore node-$(checksum pnpm-lock.yaml)
+            - pnpm install
+            - pnpm run build
+            - pnpm run test:e2e:ci
