@@ -18,7 +18,8 @@ blocks:
             - corepack prepare pnpm@latest-8 --activate
             - checkout
             - cache restore node-$(checksum pnpm-lock.yaml)
-            - pnpm install
+            - pnpm install --frozen-lockfile
+            - pnpm store prune
             - cache store node-$(checksum pnpm-lock.yaml) $(pnpm store path)
   - name: Lint
     dependencies: ["Install"]
