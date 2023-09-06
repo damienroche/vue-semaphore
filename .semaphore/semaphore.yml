@@ -25,10 +25,11 @@ blocks:
     task:
       prologue:
         commands:
-          - cache restore
+          - checkout
       jobs:
         - name: lint files
           commands:
+            - cache restore
             - echo "Lint files"
             - pnpm lint
   - name: Serve
