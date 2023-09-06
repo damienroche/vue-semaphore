@@ -76,9 +76,6 @@ blocks:
             - pnpm run test:unit
         - name: Integration tests
           commands:
-            - echo "running integration tests"
-        - name: Integration tests
-          commands:
             - curl -fsSL https://get.pnpm.io/install.sh | sh
             - source ~/.bashrc
             - cache restore node-$(checksum pnpm-lock.yaml)
