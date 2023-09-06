@@ -19,7 +19,7 @@ blocks:
             - cache store node-$(checksum pnpm-lock.yaml) $(pnpm store path)
   - name: Serve app
     dependencies: ["Install dependencies"]
-    taks:
+    task:
       jobs:
         - name: start local server
           commands:
