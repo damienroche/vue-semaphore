@@ -13,7 +13,8 @@ blocks:
     task:
       jobs:
         - name: install dependencies
-          priority: 100
+          priority:
+            - value: 100
           commands:
             - corepack enable
             - corepack prepare pnpm@latest-8 --activate
