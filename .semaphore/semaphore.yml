@@ -4,6 +4,9 @@ agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu2004
+fail_fast:
+  stop:
+    when: "branch != 'main'"
 blocks:
   - name: Install
     dependencies: []
@@ -17,6 +20,9 @@ blocks:
             - cache restore node-$(checksum pnpm-lock.yaml)
             - pnpm install
             - cache store node-$(checksum pnpm-lock.yaml) $(pnpm store path)
+        - name: lint
+          commands:
+            - pnpm lint
   - name: Lint
     dependencies: ["Install"]
     task:
