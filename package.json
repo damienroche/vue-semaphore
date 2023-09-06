@@ -10,7 +10,7 @@
     "preview-https": "serve dist",
     "test": "vitest",
     "test:e2e": "cypress open",
-    "test:e2e:ci": "npx vite --port 3333 & cypress run --headless",
+    "test:e2e:ci": "npx vite --port 3333 & cypress install & cypress run --headless",
     "test:unit": "vitest",
     "typecheck": "vue-tsc --noEmit",
     "up": "taze major -I",
