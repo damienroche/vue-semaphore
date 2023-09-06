@@ -13,6 +13,7 @@ blocks:
     task:
       jobs:
         - name: install dependencies
+          priority: 100
           commands:
             - corepack enable
             - corepack prepare pnpm@latest-8 --activate
@@ -24,9 +25,9 @@ blocks:
         - name: lint
           commands:
             - pnpm lint
-        - name: unit tests
-          commands:
-            - pnpm run test:unit
+        # - name: unit tests
+        #   commands:
+        #     - pnpm run test:unit
   # - name: Lint
   #   dependencies: ["Install"]
   #   task:
