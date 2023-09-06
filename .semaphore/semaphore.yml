@@ -31,7 +31,7 @@ blocks:
         - name: lint files
           commands:
             - echo "Lint files"
-            - cache restore node-$(checksum pnpm-lock.yaml) $(pnpm store path)
+            - cache restore node-$(checksum pnpm-lock.yaml)
             - pnpm i --frozen-lockfile --offline
             - pnpm lint
   - name: Serve
