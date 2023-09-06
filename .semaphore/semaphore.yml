@@ -37,6 +37,7 @@ blocks:
             - checkout
             - echo "Lint files"
             - cache restore node-$(checksum pnpm-lock.yaml)
+            - pnpm install
             - ./node_modules/.bin/eslint .
   # - name: Serve
   #   dependencies: ["Install"]
