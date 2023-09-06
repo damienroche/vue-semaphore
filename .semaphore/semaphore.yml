@@ -25,8 +25,8 @@ blocks:
     dependencies: ["Install"]
     task:
       # prologue:
-        commands:
-          - checkout
+      #   commands:
+      #     - checkout
       jobs:
         - name: lint files
           commands:
@@ -37,7 +37,7 @@ blocks:
             - checkout
             - echo "Lint files"
             - cache restore node-$(checksum pnpm-lock.yaml)
-            - pnpm lint
+            - ./node_modules/.bin/eslint .
   # - name: Serve
   #   dependencies: ["Install"]
   #   task:
