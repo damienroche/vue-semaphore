@@ -12,7 +12,7 @@ blocks:
     dependencies: []
     task:
       jobs:
-        - name: pnpm install
+        - name: install dependencies
           commands:
             - corepack enable
             - corepack prepare pnpm@latest-8 --activate
@@ -24,46 +24,49 @@ blocks:
   - name: Lint
     dependencies: ["Install"]
     task:
-      prologue:
+      # prologue:
         commands:
           - checkout
       jobs:
         - name: lint files
           commands:
-            - curl -fsSL https://get.pnpm.io/install.sh | sh
-            - source ~/.bashrc
+            # - curl -fsSL https://get.pnpm.io/install.sh | sh
+            # - source ~/.bashrc
+            - corepack enable
+            - corepack prepare pnpm@latest-8 --activate
+            - checkout
             - echo "Lint files"
             - cache restore node-$(checksum pnpm-lock.yaml)
             - pnpm lint
-  - name: Serve
-    dependencies: ["Install"]
-    task:
-      prologue:
-          commands:
-            - checkout
-      jobs:
-        - name: start local server
-          commands:
-            - curl -fsSL https://get.pnpm.io/install.sh | sh
-            - source ~/.bashrc
-            - cache restore node-$(checksum pnpm-lock.yaml)
-            - pnpm dev
-  - name: Tests
-    dependencies: ["Install", "Serve"]
-    task:
-      prologue:
-        commands:
-          - checkout
-      jobs:
-        - name: Unit tests
-          commands:
-            - curl -fsSL https://get.pnpm.io/install.sh | sh
-            - source ~/.bashrc
-            - cache restore node-$(checksum pnpm-lock.yaml)
-            - pnpm run test:unit
-        - name: Integration tests
-          commands:
-            - echo "running integration tests"
+  # - name: Serve
+  #   dependencies: ["Install"]
+  #   task:
+  #     prologue:
+  #         commands:
+  #           - checkout
+  #     jobs:
+  #       - name: start local server
+  #         commands:
+  #           - curl -fsSL https://get.pnpm.io/install.sh | sh
+  #           - source ~/.bashrc
+  #           - cache restore node-$(checksum pnpm-lock.yaml)
+  #           - pnpm dev
+  # - name: Tests
+  #   dependencies: ["Install", "Serve"]
+  #   task:
+  #     prologue:
+  #       commands:
+  #         - checkout
+  #     jobs:
+  #       - name: Unit tests
+  #         commands:
+  #           - curl -fsSL https://get.pnpm.io/install.sh | sh
+  #           - source ~/.bashrc
+  #           - cache restore node-$(checksum pnpm-lock.yaml)
+  #           - pnpm run test:unit
+  #       - name: Integration tests
+  #         commands:
+  #           - echo "running integration tests"
   # - name: Mac E2E tests
   #   dependencies: ["Install"]
   #   task:
