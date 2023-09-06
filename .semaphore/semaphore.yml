@@ -81,5 +81,4 @@ blocks:
             - cache restore node-$(checksum pnpm-lock.yaml)
             - pnpm install
             - pnpm run build
-            - npx vite --port 3333
             - pnpm run test:e2e:ci
