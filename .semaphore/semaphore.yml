@@ -22,6 +22,7 @@ blocks:
             - cache store node-$(checksum pnpm-lock.yaml) $(pnpm store path)
         - name: lint
           commands:
+            - cache restore
             - pnpm lint
   - name: Lint
     dependencies: ["Install"]
