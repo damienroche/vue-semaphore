@@ -59,6 +59,7 @@ blocks:
           - checkout
           - node --version
           - npm --version
+          - pnpm --version
       jobs:
         - name: Cypress E2E
           commands:
